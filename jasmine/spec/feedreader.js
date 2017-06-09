@@ -68,7 +68,7 @@ $(function() {
       if (!$('body').hasClass(menuHiddenTag)) {
         $('body').addClass(menuHiddenTag);
       }
-    }
+    };
 
     /* a test that ensures the menu element is hidden by default. 
      * You'll have to analyze the HTML and the CSS to determine 
@@ -94,7 +94,7 @@ $(function() {
       // first of all make sure the menu is hidden.
       expect($('body').hasClass(menuHiddenTag)).toBeTruthy();
       // give once click to make the menu appeared.
-      $(menuButtonClass).click()
+      $(menuButtonClass).click();
       expect($('body').hasClass(menuHiddenTag)).toBeFalsy();
       // Now this click should make the menu disappear.
       $(menuButtonClass).click();
@@ -111,8 +111,6 @@ $(function() {
       expect($('body').hasClass(menuHiddenTag)).toBeTruthy();
     });
   });
-
-
 
   describe('Initial Entries', function() {
     beforeEach(function(done) {
