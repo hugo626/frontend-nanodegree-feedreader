@@ -22,8 +22,7 @@ $(function() {
      * page?
      */
     it('are defined', function() {
-      expect(allFeeds).toBeDefined();
-      expect(allFeeds.length).not.toBe(0);
+      expect(allFeeds).toBeTruthy();
     });
 
 
@@ -33,7 +32,6 @@ $(function() {
      */
     it('every feed entry should have url defined, and it is not empty', function() {
       allFeeds.forEach(function(feed) {
-        expect(feed.url).toBeDefined();
         expect(feed.url).toBeTruthy();
       });
     });
@@ -44,7 +42,6 @@ $(function() {
      */
     it('every feed entry should have name defined, and it is not empty', function() {
       allFeeds.forEach(function(feed) {
-        expect(feed.name).toBeDefined();
         expect(feed.name).toBeTruthy();
       });
     });
@@ -56,19 +53,6 @@ $(function() {
     var menuHiddenTag = 'menu-hidden';
     var feedListAnchorClass = '.feed-list a';
     var menuButtonClass = '.menu-icon-link';
-
-    // for each test to run, we need to make sure
-    // the menu is set back to default state.
-    beforeEach(function() {
-      resetMenu();
-    });
-
-    // Reset the menu back to default state.
-    var resetMenu = function() {
-      if (!$('body').hasClass(menuHiddenTag)) {
-        $('body').addClass(menuHiddenTag);
-      }
-    };
 
     /* a test that ensures the menu element is hidden by default. 
      * You'll have to analyze the HTML and the CSS to determine 
@@ -83,16 +67,12 @@ $(function() {
      * does the menu display when clicked and does it hide when clicked again.
      */
     it('should be displayed when menu button is clicked, if the menu was hidden.', function() {
-      // first of all make sure the menu is hidden.
-      expect($('body').hasClass(menuHiddenTag)).toBeTruthy();
       // give once click to make the menu appeared.
       $(menuButtonClass).click();
       expect($('body').hasClass(menuHiddenTag)).toBeFalsy();
     });
 
     it('should be hidden when menu button is clicked, if the menu was displayed.', function() {
-      // first of all make sure the menu is hidden.
-      expect($('body').hasClass(menuHiddenTag)).toBeTruthy();
       // give once click to make the menu appeared.
       $(menuButtonClass).click();
       expect($('body').hasClass(menuHiddenTag)).toBeFalsy();
@@ -102,9 +82,7 @@ $(function() {
     });
 
     it('should be hidden when menu list is clicked, if the menu was displayed.', function() {
-      // first of all make sure the menu is hidden.
-      expect($('body').hasClass(menuHiddenTag)).toBeTruthy();
-      // give once click to make the menu appeared.
+      // give first click to make the menu appeared.
       $(menuButtonClass).click();
       // now click the anchor link
       $(feedListAnchorClass)[0].click();
@@ -113,18 +91,16 @@ $(function() {
   });
 
   describe('Initial Entries', function() {
-    beforeEach(function(done) {
-      loadFeed(0, done);
-    });
     /* A test that ensures when the loadFeed
      * function is called and completes its work, there is at least
      * a single .entry element within the .feed container.
      * Remember, loadFeed() is asynchronous so this test will require
      * the use of Jasmine's beforeEach and asynchronous done() function.
      */
-    it('there is at least a single .entry element within the .feed container', function(done) {
-      expect($('.feed .entry').length).toBeGreaterThan(0);
-      done();
+    it('there is at least a single .entry element within the .feed container', function() {
+      loadFeed(0, function(){
+        expect($('.feed .entry').length).toBeGreaterThan(0);
+      });
     });
 
     /**
