@@ -54,14 +54,6 @@ $(function() {
     var feedListAnchorClass = '.feed-list a';
     var menuButtonClass = '.menu-icon-link';
 
-    // for each test to run, we need to make sure
-    // the menu is set back to default state.
-    beforeEach(function() {
-      if (!$('body').hasClass(menuHiddenTag)) {
-        $('body').addClass(menuHiddenTag);
-      }
-    });
-
     /* a test that ensures the menu element is hidden by default. 
      * You'll have to analyze the HTML and the CSS to determine 
      * how we're performing the hiding/showing of the menu element.
@@ -74,13 +66,7 @@ $(function() {
      * the menu icon is clicked. This test should have two expectations: 
      * does the menu display when clicked and does it hide when clicked again.
      */
-    it('should be displayed when menu button is clicked, if the menu was hidden.', function() {
-      // give once click to make the menu appeared.
-      $(menuButtonClass).click();
-      expect($('body').hasClass(menuHiddenTag)).toBeFalsy();
-    });
-
-    it('should be hidden when menu button is clicked, if the menu was displayed.', function() {
+    it('should be toggled between disaplay or not, when menu button is clicked again and again.', function() {
       // give once click to make the menu appeared.
       $(menuButtonClass).click();
       expect($('body').hasClass(menuHiddenTag)).toBeFalsy();
@@ -108,9 +94,8 @@ $(function() {
      * Remember, loadFeed() is asynchronous so this test will require
      * the use of Jasmine's beforeEach and asynchronous done() function.
      */
-    it('there is at least a single .entry element within the .feed container', function(done) {
+    it('there is at least a single .entry element within the .feed container', function() {
       expect($('.feed .entry').length).toBeGreaterThan(0);
-      done();
     });
 
     /**
